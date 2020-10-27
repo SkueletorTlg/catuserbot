@@ -10,7 +10,7 @@ from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 from . import ALIVE_NAME, BOTLOG, BOTLOG_CHATID, CMD_HELP
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
-USERNAME = str(Config.LIVE_USERNAME) if Config.LIVE_USERNAME else "@Jisan7509"
+USERNAME = str(Config.LIVE_USERNAME) if Config.LIVE_USERNAME else "@DKzippO"
 
 telegraph = Telegraph()
 r = telegraph.create_account(short_name=Config.TELEGRAPH_SHORT_NAME)
@@ -22,13 +22,13 @@ auth_url = r["auth_url"]
 async def _(event):
     if event.fwd_from:
         return
-    catevent = await edit_or_reply(event, "`processing........`")
+    catevent = await edit_or_reply(event, "`procesando........`")
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if BOTLOG:
         await borg.send_message(
             BOTLOG_CHATID,
-            "Created New Telegraph account {} for the current session. \n**Do not give this url to anyone, even if they say they are from Telegram!**".format(
+            "Se creó una nueva cuenta de Telegraph {} para la sesión actual. \n**No le dé esta URL a nadie, ¡incluso si dice que es de Telegram!**".format(
                 auth_url
             ),
         )
@@ -44,7 +44,7 @@ async def _(event):
             end = datetime.now()
             ms = (end - start).seconds
             await catevent.edit(
-                "Downloaded to {} in {} seconds.".format(downloaded_file_name, ms),
+                "Descargado a {} en {} segundos.".format(downloaded_file_name, ms),
             )
             if downloaded_file_name.endswith((".webp")):
                 resize_image(downloaded_file_name)
@@ -61,8 +61,8 @@ async def _(event):
                 jisan = "https://telegra.ph{}".format(media_urls[0])
                 os.remove(downloaded_file_name)
                 await catevent.edit(
-                    f"**__➥ Uploaded to :-__ [Telegraph]**({jisan})\
-                    \n__**➥ Uploaded in {ms + ms_two} seconds .**__\n__**➥ Uploaded by :-**__ [{DEFAULTUSER}]({USERNAME})",
+                    f"**__➥ Subido a :-__ [Telegraph]**({jisan})\
+                    \n__**➥ Subido en {ms + ms_two} segundos .**__\n__**➥ Subido por :-**__ [{DEFAULTUSER}]({USERNAME})",
                     link_preview=True,
                 )
         elif input_str == "text":
@@ -90,13 +90,13 @@ async def _(event):
             ms = (end - start).seconds
             cat = f"https://telegra.ph/{response['path']}"
             await catevent.edit(
-                f"**__➥ Pasted to :-__ [Telegraph]**({cat})\
-                \n__**➥ Pasted in {ms} seconds .**__",
+                f"**__➥ Pegado a :-__ [Telegraph]**({cat})\
+                \n__**➥ Pegado en {ms} segundos .**__",
                 link_preview=True,
             )
     else:
         await catevent.edit(
-            "`Reply to a message to get a permanent telegra.ph link. (Inspired by @ControllerBot)`",
+            "`Responde a un mensaje para obtener un enlace telegra.ph permanente. (Inspired by @DKzippO)`",
         )
 
 
@@ -109,9 +109,9 @@ CMD_HELP.update(
     {
         "telegraph": "__**PLUGIN NAME :** Telegraph__\
      \n\n📌** CMD ➥** `.telegraph media`\
-     \n**USAGE   ➥  **Reply to any image or video to upload it to telgraph(video must be less than 5mb)\
+     \n**USAGE   ➥  **Responda a cualquier imagen o video para subirlo a Telegraph (el video debe tener menos de 5mb)\
      \n\n📌** CMD ➥** `.telegraph text`\
-     \n**USAGE   ➥  **Reply to any text file or any message to paste it to telegraph\
+     \n**USAGE   ➥  **Responda a cualquier archivo de texto o cualquier mensaje para pegarlo en telegraph\
     "
     }
 )
