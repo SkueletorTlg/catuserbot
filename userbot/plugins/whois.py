@@ -133,7 +133,9 @@ async def who(event):
     try:
         photo, caption = await fetch_info(replied_user, event)
     except AttributeError:
-        await edit_or_reply(event, "`No se pudo recuperar la información de ese usuario.`")
+        await edit_or_reply(
+            event, "`No se pudo recuperar la información de ese usuario.`"
+        )
         return
     message_id_to_reply = event.message.reply_to_msg_id
     if not message_id_to_reply:
@@ -223,7 +225,9 @@ async def fetch_info(replied_user, event):
     caption += f"<b>🤵 Nombre de usuario:</b> {username}\n"
     caption += f"<b>🔖 ID:</b> <code>{user_id}</code>\n"
     caption += f"<b>🌏 ID del centro de datos:</b> {dc_id}\n"
-    caption += f"<b>🖼 Número de fotos de perfil:</b> {replied_user_profile_photos_count}\n"
+    caption += (
+        f"<b>🖼 Número de fotos de perfil:</b> {replied_user_profile_photos_count}\n"
+    )
     caption += f"<b>🤖 Es un bot:</b> {is_bot}\n"
     caption += f"<b>🔏 Está restringido:</b> {restricted}\n"
     caption += f"<b>🌐 Está verificado por Telegram:</b> {verified}\n\n"
@@ -265,7 +269,9 @@ async def get_user_from_event(event):
         if user.isnumeric():
             user = int(user)
         if not user:
-            await event.edit("`¡Pase el nombre de usuario, la identificación o la respuesta del usuario!`")
+            await event.edit(
+                "`¡Pase el nombre de usuario, la identificación o la respuesta del usuario!`"
+            )
             return
         if event.message.entities:
             probable_user_mention_entity = event.message.entities[0]
