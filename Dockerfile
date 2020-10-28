@@ -1,7 +1,7 @@
-FROM sandy1709/catuserbot:latest
+FROM SkueletorTlg/catuserbot:latest
 
 #clonning repo 
-RUN git clone https://github.com/Jisan09/catuserbot.git /root/userbot
+RUN git clone https://github.com/SkueletorTlg/catuserbot.git /root/userbot
 #working directory 
 WORKDIR /root/userbot
 
