@@ -16,7 +16,7 @@ async def _(event):
         return
     catevent = await edit_or_reply(
         event,
-        "`Renaming in process 🙄🙇‍♂️🙇‍♂️🙇‍♀️ It might take some time if file size is big`",
+        "`Cambio de nombre en proceso 🙄🙇‍♂️🙇‍♂️🙇‍♀️ Puede llevar algo de tiempo si el tamaño del archivo es grande...`",
     )
     input_str = event.pattern_match.group(1)
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
@@ -32,20 +32,20 @@ async def _(event):
             reply_message,
             downloaded_file_name,
             progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                progress(d, t, catevent, c_time, "trying to download", file_name)
+                progress(d, t, catevent, c_time, "Intentado descargar", file_name)
             ),
         )
         end = datetime.now()
         ms = (end - start).seconds
         if os.path.exists(downloaded_file_name):
             await catevent.edit(
-                f"**File Downloaded in {ms} seconds.**\n**File location : **`{downloaded_file_name}`"
+                f"**Archivo descargado en {ms} segundos.**\n**Localización del archivo : **`{downloaded_file_name}`"
             )
         else:
-            await catevent.edit("Error Occurred\n {}".format(input_str))
+            await catevent.edit("Se produjo un error\n {}".format(input_str))
     else:
         await catevent.edit(
-            "**Syntax : ** `.rename file.name` as reply to a Telegram media"
+            "**Syntax : ** `.rename file.name` como respuesta a un archivo de Telegram"
         )
 
 
@@ -59,7 +59,7 @@ async def _(event):
         thumb = thumb_image_path
     catevent = await edit_or_reply(
         event,
-        "`Rename & Upload in process 🙄🙇‍♂️🙇‍♂️🙇‍♀️ It might take some time if file size is big`",
+        "`Cambiar el nombre y subir en proceso 🙄🙇‍♂️🙇‍♂️🙇‍♀️ Puede llevar algo de tiempo si el tamaño del archivo es grande.`",
     )
     input_str = event.pattern_match.group(1)
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
@@ -75,7 +75,7 @@ async def _(event):
             reply_message,
             downloaded_file_name,
             progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                progress(d, t, catevent, c_time, "trying to download", file_name)
+                progress(d, t, catevent, c_time, "Intentado descargar", file_name)
             ),
         )
         end = datetime.now()
@@ -92,7 +92,7 @@ async def _(event):
                 thumb=thumb,
                 progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
                     progress(
-                        d, t, event, c_time, "trying to upload", downloaded_file_name
+                        d, t, event, c_time, "Intentando subir", downloaded_file_name
                     )
                 ),
             )
@@ -100,12 +100,12 @@ async def _(event):
             os.remove(downloaded_file_name)
             ms_two = (end_two - end).seconds
             await catevent.edit(
-                f"`Downloaded file in {ms_one} seconds.`\n`Uploaded in {ms_two} seconds.`"
+                f"`Archivo descargado en {ms_one} segundos.`\n`Subido en {ms_two} segundos.`"
             )
             await asyncio.sleep(3)
             await catevent.delete()
         else:
-            await catevent.edit("File Not Found {}".format(input_str))
+            await catevent.edit("Archivo no encontrado {}".format(input_str))
     else:
         await catevent.edit(
             "**Syntax : **`.rnupload file.name` as reply to a Telegram media"
