@@ -38,10 +38,10 @@ async def amireallyalive(alive):
         cat_caption += (
             f"<b>{EMOJI} Versión de Telethon :</b> <code>{version.__version__}</code>\n"
         )
+        cat_caption += f"<b>{EMOJI} Versión del bot :</b> <code>{catversion}</code>\n"
         cat_caption += (
-            f"<b>{EMOJI} Versión del bot :</b> <code>{catversion}</code>\n"
+            f"<b>{EMOJI} Base de datos :</b> <code>{check_sgnirts}</code>\n\n"
         )
-        cat_caption += f"<b>{EMOJI} Base de datos :</b> <code>{check_sgnirts}</code>\n\n"
         cat_caption += "    <a href = https://t.me/DKzippO><b>Creador</b></a> | <a href = https://t.me/BotsDeSkueletor><b>Más bots</b></a> | <a href = https://t.me/Skueletor_bot><b>Soporte</b></a>"
         await borg.send_file(
             alive.chat_id,
