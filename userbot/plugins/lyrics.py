@@ -14,7 +14,7 @@ GENIUS = os.environ.get("GENIUS_API_TOKEN", None)
 @bot.on(admin_cmd(outgoing=True, pattern="lyrics ?(.*)"))
 @bot.on(sudo_cmd(allow_sudo=True, pattern="lyrics ?(.*)"))
 async def _(event):
-    catevent = await edit_or_reply(event, "wi8..! I am searching your lyrics....`")
+    catevent = await edit_or_reply(event, "Hola... Soy el buscador de letras de canciones....`")
     reply_to_id = event.message.id
     if event.reply_to_msg_id:
         reply_to_id = event.reply_to_msg_id
@@ -24,7 +24,7 @@ async def _(event):
     elif reply.text:
         query = reply.message
     else:
-        await catevent.edit("`What I am Supposed to find `")
+        await catevent.edit("`Lo que se supone que debo encontrar `")
         return
     song = ""
     song = Song.find_song(query)
@@ -32,9 +32,9 @@ async def _(event):
         if song.lyrics:
             reply = song.format()
         else:
-            reply = "Couldn't find any lyrics for that song! try with artist name along with song if still doesnt work try `.glyrics`"
+            reply = "¡No se pudo encontrar la letra de esa canción! intente con el nombre del artista junto con la canción si aún no funciona intente `.glyrics`"
     else:
-        reply = "lyrics not found! try with artist name along with song if still doesnt work try `.glyrics`"
+        reply = "¡Letra no encontrada! intente con el nombre del artista junto con la canción si aún no funciona intente `.glyrics`"
     if len(reply) > Config.MAX_MESSAGE_SIZE_LIMIT:
         with io.BytesIO(str.encode(reply)) as out_file:
             out_file.name = "lyrics.text"
@@ -59,19 +59,19 @@ async def lyrics(lyric):
     else:
         await edit_or_reply(
             lyric,
-            "Error: please use '-' as divider for <artist> and <song> \neg: `.glyrics Nicki Minaj - Super Bass`",
+            "Error: por favor use '-' como divisor de <artista> y <canción> \ejemplo: `.glyrics Alan Walker - Faded`",
         )
         return
     if r"-" not in query:
         await edit_or_reply(
             lyric,
-            "Error: please use '-' as divider for <artist> and <song> \neg: `.glyrics Nicki Minaj - Super Bass`",
+            "Error: por favor use '-' como divisor de <artista> y <canción> \ejemplo: `.glyrics Alan Walker - Faded`",
         )
         return
     if GENIUS is None:
         await edit_or_reply(
             lyric,
-            "`Provide genius access token to config.py or Heroku Var first kthxbye!`",
+            "`¡Proporcione el token de acceso genial a config.py o Heroku Var primero kthxbye!`",
         )
     else:
         genius = lyricsgenius.Genius(GENIUS)
@@ -83,20 +83,20 @@ async def lyrics(lyric):
             await edit_or_reply(lyric, f"Error:\n`{e}`")
             return
     if len(args) < 1:
-        await edit_or_reply(lyric, "`Please provide artist and song names`")
+        await edit_or_reply(lyric, "`Proporciona el nombre del artista y la canción.`")
         return
     catevent = await edit_or_reply(
-        lyric, f"`Searching lyrics for {artist} - {song}...`"
+        lyric, f"`Buscando letras para {artist} - {song}...`"
     )
     try:
         songs = genius.search_song(song, artist)
     except TypeError:
         songs = None
     if songs is None:
-        await catevent.edit(f"Song **{artist} - {song}** not found!")
+        await catevent.edit(f"Canción **{artist} - {song}** ¡No encontrada!")
         return
     if len(songs.lyrics) > 4096:
-        await catevent.edit("`Lyrics is too big, view the file to see it.`")
+        await catevent.edit("`La letra es demasiado grande, mira el archivo para verlo.`")
         with open("lyrics.txt", "w+") as f:
             f.write(f"Search query: \n{artist} - {song}\n\n{songs.lyrics}")
         await lyric.client.send_file(
@@ -107,7 +107,7 @@ async def lyrics(lyric):
         os.remove("lyrics.txt")
     else:
         await catevent.edit(
-            f"**Search query**: \n`{artist} - {song}`\n\n```{songs.lyrics}```"
+            f"**Consulta de busqueda**: \n`{artist} - {song}`\n\n```{songs.lyrics}```"
         )
     return
 
