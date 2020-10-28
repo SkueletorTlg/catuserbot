@@ -21,13 +21,13 @@ async def cmd_list(event):
     input_str = event.pattern_match.group(1)
     if input_str == "text":
         string = (
-            "Total {count} commands found in {plugincount} plugins of catuserbot\n\n"
+            "En total hay {count} comandos encontrados en {plugincount} plugins del bot de Skueletor\n\n"
         )
         catcount = 0
         plugincount = 0
         for i in sorted(CMD_LIST):
             plugincount += 1
-            string += f"{plugincount}) Commands found in Plugin " + i + " are \n"
+            string += f"{plugincount}) Comandos encontrados en el plugin " + i + " are \n"
             for iter_list in CMD_LIST[i]:
                 string += "    " + str(iter_list)
                 string += "\n"
@@ -44,14 +44,14 @@ async def cmd_list(event):
                 .get("key")
             )
             url = f"https://nekobin.com/{key}"
-            reply_text = f"**All commands of the catuserbot can be seen [here]({url})**"
+            reply_text = f"**Se pueden ver todos los comandos del bot [aquí]({url})**"
             await event.edit(reply_text)
             return
         await event.edit(string.format(count=catcount, plugincount=plugincount))
         return
     if input_str:
         if input_str in CMD_LIST:
-            string = "<b>{count} Commands found in plugin {input_str}:</b>\n\n"
+            string = "<b>{count} Comandos encontrados en el plugin {input_str}:</b>\n\n"
             catcount = 0
             for i in CMD_LIST[input_str]:
                 string += f"  ◆  <code>{i}</code>"
@@ -61,15 +61,15 @@ async def cmd_list(event):
                 string.format(count=catcount, input_str=input_str), parse_mode="HTML"
             )
         else:
-            await event.edit(input_str + " is not a valid plugin!")
+            await event.edit(input_str + " ¡No es un plugin válido!")
             await asyncio.sleep(3)
             await event.delete()
     else:
         if HELPTYPE is True:
-            help_string = f"Userbot Helper.. Provided by [{DEFAULTUSER}]({USERNAME})\
-                          \nUserbot Helper to reveal all the plugin names\
-                          \n__Do__ `.help` __plugin_name for commands, in case popup doesn't appear.__\
-                          \nDo `.info` plugin_name for usage"
+            help_string = f"Ayuda del bot... Proporcionado por [{DEFAULTUSER}]({USERNAME})\
+                          \nBot de ayuda para revelar todos los nombres de los plugins\
+                          \n__Escribe__ `.help` __nombre_del_plugin para comandos, en caso de que la ventana emergente no aparezca.__\
+                          \nEscribe `.info` nombre_del_plugin para su uso"
             tgbotusername = Var.TG_BOT_USER_NAME_BF_HER
             results = await bot.inline_query(  # pylint:disable=E0602
                 tgbotusername, help_string
@@ -77,9 +77,9 @@ async def cmd_list(event):
             await results[0].click(event.chat_id, reply_to=reply_to_id, hide_via=True)
             await event.delete()
         else:
-            string = "<b>Please specify which plugin do you want help for !!\
-                \nNumber of plugins : </b><code>{count}</code>\
-                \n<b>Usage:</b> <code>.help</code> plugin name\n\n"
+            string = "<b>¡¡Especifique para qué complemento desea ayuda!!\
+                \nNúmero de Plugis : </b><code>{count}</code>\
+                \n<b>Uso:</b> <code>.help</code> Nombre del plugin\n\n"
             catcount = 0
             for i in sorted(CMD_LIST):
                 string += "◆" + f"<code>{str(i)}</code>"
@@ -92,12 +92,12 @@ async def cmd_list(event):
 async def info(event):
     input_str = event.pattern_match.group(1)
     if input_str == "text":
-        string = "Total {count} commands found in {plugincount} sudo plugins of catuserbot\n\n"
+        string = "En total hay {count} comandos encontrados en {plugincount} plugins del bot\n\n"
         catcount = 0
         plugincount = 0
         for i in sorted(SUDO_LIST):
             plugincount += 1
-            string += f"{plugincount}) Commands found in Plugin " + i + " are \n"
+            string += f"{plugincount}) Comandos encontrados en el plugin " + i + " are \n"
             for iter_list in SUDO_LIST[i]:
                 string += "    " + str(iter_list)
                 string += "\n"
@@ -114,14 +114,14 @@ async def info(event):
                 .get("key")
             )
             url = f"https://nekobin.com/{key}"
-            reply_text = f"All commands of the catuserbot are [here]({url})"
+            reply_text = f"Todos los comandos de mi bot están [aquí]({url})"
             await event.reply(reply_text)
             return
         await event.reply(string.format(count=catcount, plugincount=plugincount))
         return
     if input_str:
         if input_str in SUDO_LIST:
-            string = "<b>{count} Commands found in plugin {input_str}:</b>\n\n"
+            string = "<b>{count} Comandos encontrados en el plugin {input_str}:</b>\n\n"
             catcount = 0
             for i in SUDO_LIST[input_str]:
                 string += f"  ◆  <code>{i}</code>"
@@ -136,9 +136,9 @@ async def info(event):
             await event.delete()
             await reply.delete()
     else:
-        string = "<b>Please specify which plugin do you want help for !!\
-            \nNumber of plugins : </b><code>{count}</code>\
-            \n<b>Usage:</b> <code>.help</code> plugin name\n\n"
+        string = "<b>¡¡Especifique para qué complemento desea ayuda!!\
+            \nNúmero de comandos : </b><code>{count}</code>\
+            \n<b>Uso:</b> <code>.help</code> nombre del plugin\n\n"
         catcount = 0
         for i in sorted(SUDO_LIST):
             string += "◆" + f"<code>{str(i)}</code>"
@@ -156,13 +156,13 @@ async def info(event):
         if args in CMD_HELP:
             await edit_or_reply(event, str(CMD_HELP[args]))
         else:
-            event = await edit_or_reply(event, "Please specify a valid plugin name.")
+            event = await edit_or_reply(event, "Por favor ingrese un plugin válido.")
             await asyncio.sleep(3)
             await event.delete()
     else:
-        string = "<b>Please specify which plugin do you want help for !!\
-            \nNumber of plugins : </b><code>{count}</code>\
-            \n<b>Usage : </b><code>.info</code> <plugin name>\n\n"
+        string = "<b>¡¡Especifique para qué complemento desea ayuda!!\
+            \nNúmero de plugins : </b><code>{count}</code>\
+            \n<b>Uso : </b><code>.info</code> <nombre del plugin>\n\n"
         catcount = 0
         for i in sorted(CMD_HELP):
             string += "◆ " + f"<code>{str(i)}</code>"
@@ -201,13 +201,13 @@ async def _(event):
         type = False
     if HELPTYPE is True:
         if type is True:
-            await event.edit("`inline mode is already enabled`")
+            await event.edit("`el modo inline ya está habilitado`")
         else:
             HELPTYPE = type
-            await event.edit("`inline mode is disabled`")
+            await event.edit("`el modo inline ya está deshabilitado`")
     else:
         if type is True:
             HELPTYPE = type
-            await event.edit("`inline mode is enabled`")
+            await event.edit("`el modo inline ya está habilitado`")
         else:
-            await event.edit("`inline mode is already disabled`")
+            await event.edit("`el modo inline ya está deshabilitado`")
