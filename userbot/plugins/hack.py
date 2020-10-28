@@ -46,7 +46,9 @@ async def _(event):
                 await asyncio.sleep(animation_interval)
                 await event.edit(animation_chars[i % 11])
     else:
-        await edit_or_reply(event, "Ningún usuario está definido\n No puedo hackear la cuenta")
+        await edit_or_reply(
+            event, "Ningún usuario está definido\n No puedo hackear la cuenta"
+        )
 
 
 @bot.on(admin_cmd(pattern=f"thack$", outgoing=True))
