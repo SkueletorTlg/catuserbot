@@ -15,14 +15,14 @@ async def _(event):
             bot_api_file_id = pack_bot_file_id(r_msg.media)
             await edit_or_reply(
                 event,
-                "Current Chat ID: `{}`\nFrom User ID: `{}`\nBot API File ID: `{}`".format(
+                "ID del chat actual: `{}`\nDe ID de usuario: `{}`\nID de archivo de API del bot: `{}`".format(
                     str(event.chat_id), str(r_msg.from_id), bot_api_file_id
                 ),
             )
         else:
             await edit_or_reply(
                 event,
-                "Current Chat ID: `{}`\nFrom User ID: `{}`".format(
+                "ID del chat actual: `{}`\nDe ID de usuario: `{}`".format(
                     str(event.chat_id), str(r_msg.from_id)
                 ),
             )
