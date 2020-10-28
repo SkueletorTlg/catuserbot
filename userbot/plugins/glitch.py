@@ -23,19 +23,19 @@ async def glitch(cat):
     catid = cat.reply_to_msg_id
     cat = await edit_or_reply(cat, "```Glitching... 😁```")
     if not (reply and (reply.media)):
-        await cat.edit("`Media not found...`")
+        await cat.edit("`Archivo no encontrado...`")
         return
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
     catsticker = await reply.download_media(file="./temp/")
     if not catsticker.endswith((".mp4", ".webp", ".tgs", ".png", ".jpg")):
         os.remove(catsticker)
-        await cat.edit("`Media not found...`")
+        await cat.edit("`Archivo no encontrado...`")
         return
     os.path.join("./temp/", "glitch.png")
     if catinput:
         if not catinput.isdigit():
-            await cat.edit("`You input is invalid, check help`")
+            await cat.edit("`Tu entrada no es válida, consulta la ayuda`")
             return
         catinput = int(catinput)
         if not 0 < catinput < 9:
@@ -50,7 +50,7 @@ async def glitch(cat):
         )
         stdout, stderr = (await runcmd(catcmd))[:2]
         if not os.path.lexists(catfile):
-            await cat.edit("`catsticker not found...`")
+            await cat.edit("`sticker no encontrado...`")
             LOGS.info(stdout + stderr)
         glitch_file = catfile
     elif catsticker.endswith(".webp"):
@@ -64,7 +64,7 @@ async def glitch(cat):
         catfile = os.path.join("./temp/", "glitch.png")
         await take_screen_shot(catsticker, 0, catfile)
         if not os.path.lexists(catfile):
-            await cat.edit("```catsticker not found...```")
+            await cat.edit("```sticker no encontrado...```")
             return
         glitch_file = catfile
     else:
@@ -113,11 +113,11 @@ CMD_HELP.update(
     {
         "glitch": "__**PLUGIN NAME :** Glitch__\
     \n\n📌** CMD ➥** `.glitch` reply to media file\
-    \n**USAGE   ➥  **Glitches the given mediafile(gif , stickers , image, videos) to a gif and glitch range is from 1 to 8.\
-    If nothing is mentioned then by default it is 2\
+    \n**USAGE   ➥  **Glitchea el archivo (gif, stickers, imagenes o videos) a un gif and el rango de glitch es de 1 a 8.\
+    Si no se menciona nada, por defecto es 2\
     \n\n📌** CMD ➥** `.glitchs` reply to media file\
-    \n**USAGE   ➥  **Glitches the given mediafile(gif , stickers , image, videos) to a sticker and glitch range is from 1 to 8.\
-    If nothing is mentioned then by default it is 2\
+    \n**USAGE   ➥  **Glitchea el archivo (gif, stickers, imagenes o videos) a un sticker and el rango de glitch es de 1 a 8.\
+    Si no se menciona nada, por defecto es 2\
     "
     }
 )
