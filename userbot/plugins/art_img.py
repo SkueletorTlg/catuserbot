@@ -22,18 +22,18 @@ async def _(event):
     if event.fwd_from:
         return
     if not event.reply_to_msg_id:
-        await edit_or_reply(event, "```Reply to any user message.```")
+        await edit_or_reply(event, "```Responder a cualquier mensaje de usuario.```")
         return
     reply_message = await event.get_reply_message()
     if not reply_message.media:
-        await edit_or_reply(event, "```Reply to media message```")
+        await edit_or_reply(event, "```Responder al archivo```")
         return
     chat = "@asciiart_bot"
     reply_message.sender
     if reply_message.sender.bot:
-        await edit_or_reply(event, "```Reply to actual users message.```")
+        await edit_or_reply(event, "```Responder al actual mensaje del usuario.```")
         return
-    kakashi = await edit_or_reply(event, "```Wait making ASCII...```")
+    kakashi = await edit_or_reply(event, "```Espere, creando código ASCII...```")
     async with event.client.conversation(chat) as conv:
         try:
             response = conv.wait_event(
@@ -42,18 +42,18 @@ async def _(event):
             await event.client.send_message(chat, reply_message)
             response = await response
         except YouBlockedUserError:
-            await kakashi.edit("```Please unblock @asciiart_bot and try again```")
+            await kakashi.edit("```Por favor inicie el bot @asciiart_bot e intente otra vez.```")
             return
         if response.text.startswith("Forward"):
             await kakashi.edit(
-                "```can you kindly disable your forward privacy settings for good?```"
+                "```¿Puede deshabilitar la configuración de privacidad hacia adelante para siempre?```"
             )
         else:
             await kakashi.delete()
             await event.client.send_file(
                 event.chat_id,
                 response.message.media,
-                caption=f"**➥ Image Type :** ASCII Art\n**➥ Uploaded By :** [{DEFAULTUSER}]({USERNAME})",
+                caption=f"**➥ Imagen Tipo :** ASCII Arte\n**➥ Subido por:** [{DEFAULTUSER}]({USERNAME})",
             )
             await event.client.send_read_acknowledge(conv.chat_id)
 
@@ -64,18 +64,18 @@ async def _(event):
     if event.fwd_from:
         return
     if not event.reply_to_msg_id:
-        await edit_or_reply(event, "```Reply to any user message.```")
+        await edit_or_reply(event, "```Responder a cualquier mensaje de usuario.```")
         return
     reply_message = await event.get_reply_message()
     if not reply_message.media:
-        await edit_or_reply(event, "```Reply to media message```")
+        await edit_or_reply(event, "```Responder al archivo```")
         return
     chat = "@Lines50Bot"
     reply_message.sender
     if reply_message.sender.bot:
-        await edit_or_reply(event, "```Reply to actual users message.```")
+        await edit_or_reply(event, "```Responder al actual mensaje del usuario.```")
         return
-    kakashi = await edit_or_reply(event, "```Processing```")
+    kakashi = await edit_or_reply(event, "```Procesando```")
     async with event.client.conversation(chat) as conv:
         try:
             await conv.send_message("/start")
@@ -85,13 +85,13 @@ async def _(event):
             pic = await conv.get_response()
             await event.client.send_read_acknowledge(conv.chat_id)
         except YouBlockedUserError:
-            await kakashi.edit("```Please unblock @Lines50Bot and try again```")
+            await kakashi.edit("```Por favor, inicie el bot @Lines50Bot e intente de nuevo.```")
             return
         await kakashi.delete()
         await event.client.send_file(
             event.chat_id,
             pic,
-            caption=f"**➥ Image Type :** LINE Art \n**➥ Uploaded By :** [{DEFAULTUSER}]({USERNAME})",
+            caption=f"**➥ Imagen Tipo :** LINE Arte \n**➥ Subido por:** [{DEFAULTUSER}]({USERNAME})",
         )
 
 
