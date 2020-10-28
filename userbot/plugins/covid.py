@@ -22,18 +22,18 @@ async def corona(event):
     if country_data:
         hmm1 = country_data["confirmed"] + country_data["new_cases"]
         hmm2 = country_data["deaths"] + country_data["new_deaths"]
-        data += f"\n⚠️Confirmed   : `{hmm1}`"
-        data += f"\n😔Active           : `{country_data['active']}`"
-        data += f"\n⚰️Deaths         : `{hmm2}`"
-        data += f"\n🤕Critical          : `{country_data['critical']}`"
-        data += f"\n😊Recovered   : `{country_data['recovered']}`"
-        data += f"\n💉Total tests    : `{country_data['total_tests']}`"
-        data += f"\n🥺New Cases   : `{country_data['new_cases']}`"
-        data += f"\n😟New Deaths : `{country_data['new_deaths']}`"
+        data += f"\n⚠️Casos Confirmados   : `{hmm1}`"
+        data += f"\n😔Casos activos           : `{country_data['active']}`"
+        data += f"\n⚰️Muertos         : `{hmm2}`"
+        data += f"\n🤕Críticos          : `{country_data['critical']}`"
+        data += f"\n😊Recuperados   : `{country_data['recovered']}`"
+        data += f"\n💉Prueba total    : `{country_data['total_tests']}`"
+        data += f"\n🥺New Casos   : `{country_data['new_cases']}`"
+        data += f"\n😟New Muertos : `{country_data['new_deaths']}`"
     else:
-        data += "\nNo information yet about this country!"
+        data += "\n¡Aún no hay información sobre este país!"
     await edit_or_reply(
-        event, "**Corona Virus Info in {}:**\n{}".format(country.capitalize(), data)
+        event, "**Información de CoronaVirus en {}:**\n{}".format(country.capitalize(), data)
     )
 
 
@@ -41,6 +41,6 @@ CMD_HELP.update(
     {
         "covid": "__**PLUGIN NAME :** Covid__\
    \n\n📌** CMD ➥** `.covid ` <country name>\
-   \n**USAGE   ➥  **Get an information about covid-19 data in the given country."
+   \n**USAGE   ➥  **Obtenga información sobre los datos de covid-19 en el país indicado."
     }
 )
