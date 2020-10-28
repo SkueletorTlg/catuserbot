@@ -5,7 +5,7 @@
 #
 # The entire source code is OSSRPL except 'whois' which is MPL
 # License: MPL and OSSRPL
-""" Userbot module for getiing info about any user on Telegram(including you!). """
+""" Comando del bot para obtener información sobre cualquier usuario en Telegram (¡incluido usted!). """
 
 import html
 import os
@@ -65,11 +65,11 @@ async def _(event):
             cas = "**Antispam(CAS) Banned :** `False`"
     else:
         cas = "**Antispam(CAS) Banned :** `Couldn't Fetch`"
-    caption = """**Info of [{}](tg://user?id={}):
+    caption = """**Info de [{}](tg://user?id={}):
    -🔖ID : **`{}`
-   **-**👥**Groups in Common : **`{}`
-   **-**🌏**Data Centre Number : **`{}`
-   **-**🔏**Restricted by telegram : **`{}`
+   **-**👥**Grupos en común : **`{}`
+   **-**🌏**Número del centro de datos : **`{}`
+   **-**🔏**Restringido por telegram : **`{}`
    **-**🦅{}
    **-**👮‍♂️{}
 """.format(
@@ -118,14 +118,14 @@ async def get_full_user(event):
             return replied_user, None
         except Exception as e:
             return None, e
-    return None, "No input is found"
+    return None, "No se encuentra ninguna entrada"
 
 
 @borg.on(admin_cmd(pattern="whois(?: |$)(.*)"))
 @borg.on(sudo_cmd(pattern="whois(?: |$)(.*)", allow_sudo=True))
 async def who(event):
     cat = await edit_or_reply(
-        event, "`Sit tight while I steal some data from Mark Zuckerburg...`"
+        event, "`Quédese tranquilo mientras le robo algunos datos a Mark Zuckerburg...`"
     )
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
@@ -133,7 +133,7 @@ async def who(event):
     try:
         photo, caption = await fetch_info(replied_user, event)
     except AttributeError:
-        await edit_or_reply(event, "`Could not fetch info of that user.`")
+        await edit_or_reply(event, "`No se pudo recuperar la información de ese usuario.`")
         return
     message_id_to_reply = event.message.reply_to_msg_id
     if not message_id_to_reply:
@@ -156,7 +156,7 @@ async def who(event):
 
 
 async def get_user(event):
-    """ Get the user from argument or replied message. """
+    """ Obtenga al usuario del argumento o mensaje respondido. """
     if event.reply_to_msg_id and not event.pattern_match.group(1):
         previous_message = await event.get_reply_message()
         replied_user = await event.client(GetFullUserRequest(previous_message.from_id))
@@ -183,13 +183,13 @@ async def get_user(event):
 
 
 async def fetch_info(replied_user, event):
-    """ Get details from the User object. """
+    """ Obtenga detalles del objeto Usuario. """
     replied_user_profile_photos = await event.client(
         GetUserPhotosRequest(
             user_id=replied_user.user.id, offset=42, max_id=0, limit=80
         )
     )
-    replied_user_profile_photos_count = "User haven't set profile pic"
+    replied_user_profile_photos_count = "El usuario no ha establecido la foto de perfil"
     try:
         replied_user_profile_photos_count = replied_user_profile_photos.count
     except AttributeError:
@@ -200,7 +200,7 @@ async def fetch_info(replied_user, event):
     try:
         dc_id, location = get_input_location(replied_user.profile_photo)
     except:
-        dc_id = "Couldn't fetch DC ID!"
+        dc_id = "¡No se pudo obtener el ID de DC!"
     common_chat = replied_user.common_chats_count
     username = replied_user.user.username
     user_bio = replied_user.about
@@ -213,23 +213,23 @@ async def fetch_info(replied_user, event):
     first_name = (
         first_name.replace("\u2060", "")
         if first_name
-        else ("This User has no First Name")
+        else ("Este usuario no tiene nombre")
     )
     last_name = last_name.replace("\u2060", "") if last_name else (" ")
     username = "@{}".format(username) if username else ("This User has no Username")
-    user_bio = "This User has no About" if not user_bio else user_bio
-    caption = "<b><i>USER INFO from druv's database :</i></b>\n\n"
-    caption += f"<b>👤 First Name:</b> {first_name} {last_name}\n"
-    caption += f"<b>🤵 Username:</b> {username}\n"
+    user_bio = "Este usuario no tiene Descripción" if not user_bio else user_bio
+    caption = "<b><i>INFORMACIÓN DEL USUARIO de la base de datos de Durov :</i></b>\n\n"
+    caption += f"<b>👤 Primer nombre:</b> {first_name} {last_name}\n"
+    caption += f"<b>🤵 Nombre de usuario:</b> {username}\n"
     caption += f"<b>🔖 ID:</b> <code>{user_id}</code>\n"
-    caption += f"<b>🌏 Data Centre ID:</b> {dc_id}\n"
-    caption += f"<b>🖼 Number of Profile Pics:</b> {replied_user_profile_photos_count}\n"
-    caption += f"<b>🤖 Is Bot:</b> {is_bot}\n"
-    caption += f"<b>🔏 Is Restricted:</b> {restricted}\n"
-    caption += f"<b>🌐 Is Verified by Telegram:</b> {verified}\n\n"
+    caption += f"<b>🌏 ID del centro de datos:</b> {dc_id}\n"
+    caption += f"<b>🖼 Número de fotos de perfil:</b> {replied_user_profile_photos_count}\n"
+    caption += f"<b>🤖 Es un bot:</b> {is_bot}\n"
+    caption += f"<b>🔏 Está restringido:</b> {restricted}\n"
+    caption += f"<b>🌐 Está verificado por Telegram:</b> {verified}\n\n"
     caption += f"<b>✍️ Bio:</b> \n<code>{user_bio}</code>\n\n"
-    caption += f"<b>👥 Common Chats with this user:</b> {common_chat}\n"
-    caption += f"<b>🔗 Permanent Link To Profile:</b> "
+    caption += f"<b>👥 Grupos en común con este usuario:</b> {common_chat}\n"
+    caption += f"<b>🔗 Link permanente a su perfil:</b> "
     caption += f'<a href="tg://user?id={user_id}">{first_name}</a>'
     return photo, caption
 
@@ -237,7 +237,7 @@ async def fetch_info(replied_user, event):
 @borg.on(admin_cmd(pattern="link(?: |$)(.*)"))
 @borg.on(sudo_cmd(pattern="link(?: |$)(.*)", allow_sudo=True))
 async def permalink(mention):
-    """ For .link command, generates a link to the user's PM with a custom text. """
+    """ Para el comando .link, genera un enlace al PM del usuario con un texto personalizado. """
     user, custom = await get_user_from_event(mention)
     if not user:
         return
@@ -251,7 +251,7 @@ async def permalink(mention):
 
 
 async def get_user_from_event(event):
-    """ Get the user from argument or replied message. """
+    """ Obtenga al usuario del argumento o mensaje respondido. """
     args = event.pattern_match.group(1).split(":", 1)
     extra = None
     if event.reply_to_msg_id and not len(args) == 2:
@@ -265,7 +265,7 @@ async def get_user_from_event(event):
         if user.isnumeric():
             user = int(user)
         if not user:
-            await event.edit("`Pass the user's username, id or reply!`")
+            await event.edit("`¡Pase el nombre de usuario, la identificación o la respuesta del usuario!`")
             return
         if event.message.entities:
             probable_user_mention_entity = event.message.entities[0]
@@ -295,11 +295,11 @@ async def ge(user, event):
 CMD_HELP.update(
     {
         "whois": "__**PLUGIN NAME :** Whois__\
-    \n\n📌** CMD ➥** `.whois <username>` or reply to someones text with `.whois`\
+    \n\n📌** CMD ➥** `.whois <nombre de usuario>` o reply to someones text with `.whois`\
     \n**USAGE   ➥  **Gets info of an user.\
     \n\n📌** CMD ➥** `.userinfo <username>` or reply to someones text with `.userinfo`\
     \n**USAGE   ➥  **Gets info of an user.\
     \n\n📌** CMD ➥** `.link` <text>\
-    \n**USAGE   ➥  **Generates a link to the user's PM with a custom text."
+    \n**USAGE   ➥  **Genera un enlace al PM del usuario con un texto personalizado."
     }
 )
