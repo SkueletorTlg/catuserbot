@@ -12,7 +12,7 @@ Get APP ID and API HASH from [HERE](https://my.telegram.org) and BOT TOKEN from 
     <img src="https://img.shields.io/github/forks/Jisan09/catuserbot?label=Fork&style=social">
     
   </a>
-  <a href="https://github.com/Jisan09/catuserbot">
+  <a href="https://github.com/SkueletorTlg/catuserbot">
     <img src="https://img.shields.io/github/stars/Jisan09/catuserbot?style=social">
   </a>
 </p>
