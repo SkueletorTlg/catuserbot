@@ -30,7 +30,7 @@ async def _(event):
     elif "|" in input_str:
         lan, text = input_str.split("|")
     else:
-        await edit_or_reply(event, "`.tl LanguageCode` as reply to a message")
+        await edit_or_reply(event, "`.tl CodigoDeLenguaje` como respuesta a un mensaje")
         return
     text = deEmojify(text.strip())
     lan = lan.strip()
@@ -40,7 +40,7 @@ async def _(event):
         after_tr_text = translated.text
         # TODO: emojify the :
         # either here, or before translation
-        output_str = """**TRANSLATED** from {} to {}
+        output_str = """**TRADUCIDO** desde {} a {}
 {}""".format(
             translated.src, lan, after_tr_text
         )
@@ -52,7 +52,7 @@ async def _(event):
 @bot.on(admin_cmd(outgoing=True, pattern=r"trt(?: |$)([\s\S]*)"))
 @bot.on(sudo_cmd(allow_sudo=True, pattern=r"trt(?: |$)([\s\S]*)"))
 async def translateme(trans):
-    """ For .trt command, translate the given text using Google Translate. """
+    """ Para el comando .trt, traduzca el texto dado con el Traductor de Google. """
     translator = Translator()
     textx = await trans.get_reply_message()
     message = trans.pattern_match.group(1)
@@ -61,12 +61,12 @@ async def translateme(trans):
     elif textx:
         message = textx.text
     else:
-        await edit_or_reply(trans, "`Give a text or reply to a message to translate!`")
+        await edit_or_reply(trans, "`¡Envíe un mensaje de texto o responda a un mensaje para traducir!`")
         return
     try:
         reply_text = translator.translate(deEmojify(message), dest=TRT_LANG)
     except ValueError:
-        await edit_or_reply(trans, "Invalid destination language.")
+        await edit_or_reply(trans, "Idioma de destino no válido.")
         return
     source_lan = LANGUAGES[f"{reply_text.src.lower()}"]
     transl_lan = LANGUAGES[f"{reply_text.dest.lower()}"]
@@ -93,7 +93,7 @@ async def lang(value):
     else:
         await edit_or_reply(
             value,
-            f"`Invalid Language code !!`\n`Available language codes for TRT`:\n\n`{LANGUAGES}`",
+            f"`¡Código de idioma no válido!`\n`Códigos de idioma disponibles para TRT`:\n\n`{LANGUAGES}`",
         )
         return
     await edit_or_reply(value, f"`Language for {scraper} changed to {LANG.title()}.`")
@@ -106,13 +106,13 @@ async def lang(value):
 CMD_HELP.update(
     {
         "translate": "__**PLUGIN NAME :** Translate__\
-         \n\n📌** CMD ➥** `.tl` LanguageCode as reply to a message\
-         \n**USAGE   ➥  **.tl LangaugeCode | text to translate\
+         \n\n📌** CMD ➥** `.tl` CodigoDeLenguaje como respuesta a un mensaje\
+         \n**USAGE   ➥  **.tl CodigoDeLenguaje | Texto a traducir\
          \n**Example :** `.tl hi`\
-         \n\n📌** CMD ➥** `.trt` Reply to a message\
-         \n**USAGE   ➥  **It will translate your messege\
-         \n\n📌** CMD ➥** `.lang trt` LanguageCode\
-         \n**USAGE   ➥  **It will set default langaugeCode for **trt**\
+         \n\n📌** CMD ➥** `.trt` Respondiendo el mensaje\
+         \n**USAGE   ➥  **Traducirá tu mensaje\
+         \n\n📌** CMD ➥** `.lang trt` CodigoDeLenguaje\
+         \n**USAGE   ➥  **Se establecerá por defecto CodigoDeLenguaje para **trt**\
         "
     }
 )
