@@ -29,7 +29,7 @@ async def remove_background(event):
         return
     if Config.REM_BG_API_KEY is None:
         return await edit_or_reply(
-            event, "`You need API token from remove.bg to use this plugin.`"
+            event, "`Necesita el token de API de remove.bg para usar este complemento.`"
         )
     cmd = event.pattern_match.group(1)
     input_str = event.pattern_match.group(2)
@@ -38,7 +38,7 @@ async def remove_background(event):
         message_id = event.reply_to_msg_id
         reply_message = await event.get_reply_message()
         # check if media message
-        event = await edit_or_reply(event, "Ooh Analysing dis pic...")
+        event = await edit_or_reply(event, "Analizando esta foto...")
         file_name = "rmbg.png"
         if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
             os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
@@ -52,16 +52,16 @@ async def remove_background(event):
             await event.edit(str(e))
             return
         else:
-            await event.edit("`Removing Back ground of this media`")
+            await event.edit("`Removiendo el fondo de este archivo`")
             downloaded_file_name = convert_toimage(downloaded_file_name)
             output_file_name = ReTrieveFile(downloaded_file_name)
             os.remove(downloaded_file_name)
     elif input_str:
-        await event.edit("`Removing Back ground of this media`")
+        await event.edit("`Removiendo el fondo de este archivo`")
         output_file_name = ReTrieveURL(input_str)
     else:
         await event.edit(
-            "`.rmbg`/`.srmbg` as reply to a media, or give a link as an argument to this command"
+            "`.rmbg`/`.srmbg` como respuesta a un archivo, o dar un enlace como argumento a este comando"
         )
         return
     contentType = output_file_name.headers.get("content-type")
@@ -73,7 +73,7 @@ async def remove_background(event):
                     event.chat_id,
                     remove_bg_image,
                     force_document=True,
-                    caption="__**➥ Removed dat annoying Background just for you.**__🥳",
+                    caption="__**➥Eliminado ese molesto fondo solo para ti.**__🥳",
                     reply_to=message_id,
                 )
             await event.delete()
