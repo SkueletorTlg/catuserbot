@@ -33,7 +33,8 @@ async def corona(event):
     else:
         data += "\n¡Aún no hay información sobre este país!"
     await edit_or_reply(
-        event, "**Información de CoronaVirus en {}:**\n{}".format(country.capitalize(), data)
+        event,
+        "**Información de CoronaVirus en {}:**\n{}".format(country.capitalize(), data),
     )
 
 
