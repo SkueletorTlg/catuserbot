@@ -14,7 +14,9 @@ GENIUS = os.environ.get("GENIUS_API_TOKEN", None)
 @bot.on(admin_cmd(outgoing=True, pattern="lyrics ?(.*)"))
 @bot.on(sudo_cmd(allow_sudo=True, pattern="lyrics ?(.*)"))
 async def _(event):
-    catevent = await edit_or_reply(event, "Hola... Soy el buscador de letras de canciones....`")
+    catevent = await edit_or_reply(
+        event, "Hola... Soy el buscador de letras de canciones....`"
+    )
     reply_to_id = event.message.id
     if event.reply_to_msg_id:
         reply_to_id = event.reply_to_msg_id
@@ -96,7 +98,9 @@ async def lyrics(lyric):
         await catevent.edit(f"Canción **{artist} - {song}** ¡No encontrada!")
         return
     if len(songs.lyrics) > 4096:
-        await catevent.edit("`La letra es demasiado grande, mira el archivo para verlo.`")
+        await catevent.edit(
+            "`La letra es demasiado grande, mira el archivo para verlo.`"
+        )
         with open("lyrics.txt", "w+") as f:
             f.write(f"Search query: \n{artist} - {song}\n\n{songs.lyrics}")
         await lyric.client.send_file(
