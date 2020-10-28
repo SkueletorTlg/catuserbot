@@ -42,7 +42,9 @@ async def _(event):
             await event.client.send_message(chat, reply_message)
             response = await response
         except YouBlockedUserError:
-            await kakashi.edit("```Por favor inicie el bot @asciiart_bot e intente otra vez.```")
+            await kakashi.edit(
+                "```Por favor inicie el bot @asciiart_bot e intente otra vez.```"
+            )
             return
         if response.text.startswith("Forward"):
             await kakashi.edit(
@@ -85,7 +87,9 @@ async def _(event):
             pic = await conv.get_response()
             await event.client.send_read_acknowledge(conv.chat_id)
         except YouBlockedUserError:
-            await kakashi.edit("```Por favor, inicie el bot @Lines50Bot e intente de nuevo.```")
+            await kakashi.edit(
+                "```Por favor, inicie el bot @Lines50Bot e intente de nuevo.```"
+            )
             return
         await kakashi.delete()
         await event.client.send_file(
