@@ -61,7 +61,9 @@ async def translateme(trans):
     elif textx:
         message = textx.text
     else:
-        await edit_or_reply(trans, "`¡Envíe un mensaje de texto o responda a un mensaje para traducir!`")
+        await edit_or_reply(
+            trans, "`¡Envíe un mensaje de texto o responda a un mensaje para traducir!`"
+        )
         return
     try:
         reply_text = translator.translate(deEmojify(message), dest=TRT_LANG)
