@@ -12,7 +12,7 @@ CAT_IMG = Config.ALIVE_PIC
 JISAN = (
     str(Config.CUSTOM_ALIVE_TEXT)
     if Config.CUSTOM_ALIVE_TEXT
-    else "✮ MY BOT IS RUNNING SUCCESFULLY ✮"
+    else "✮ MI BOT ESTÁ FUNCIONANDO CORRECTAMENTE ✮"
 )
 EMOJI = str(Config.CUSTOM_ALIVE_EMOJI) if Config.CUSTOM_ALIVE_EMOJI else "✧✧"
 
@@ -30,19 +30,19 @@ async def amireallyalive(alive):
         reply_to_id = await alive.get_reply_message()
     if CAT_IMG:
         cat_caption = f"<b>{JISAN}</b>\n\n"
-        cat_caption += f"<b>{EMOJI} Master :</b> <a href = tg://user?id={hmm}><b>{DEFAULTUSER}</b></a>\n"
-        cat_caption += f"<b>{EMOJI} Uptime :</b> <code>{uptime}</code>\n"
+        cat_caption += f"<b>{EMOJI} Maestro :</b> <a href = tg://user?id={hmm}><b>{DEFAULTUSER}</b></a>\n"
+        cat_caption += f"<b>{EMOJI} Tiempo de actividad :</b> <code>{uptime}</code>\n"
         cat_caption += (
-            f"<b>{EMOJI} Python Version :</b> <code>{python_version()}</code>\n"
+            f"<b>{EMOJI} Versión de Python :</b> <code>{python_version()}</code>\n"
         )
         cat_caption += (
-            f"<b>{EMOJI} Telethon version :</b> <code>{version.__version__}</code>\n"
+            f"<b>{EMOJI} Versión de Telethon :</b> <code>{version.__version__}</code>\n"
         )
         cat_caption += (
-            f"<b>{EMOJI} Catuserbot Version :</b> <code>{catversion}</code>\n"
+            f"<b>{EMOJI} Versión del bot :</b> <code>{catversion}</code>\n"
         )
-        cat_caption += f"<b>{EMOJI} Database :</b> <code>{check_sgnirts}</code>\n\n"
-        cat_caption += "    <a href = https://github.com/sandy1709/catuserbot><b>GoodCat</b></a> | <a href = https://github.com/Jisan09/catuserbot><b>BadCat</b></a> | <a href = https://t.me/catuserbot_support><b>Support</b></a>"
+        cat_caption += f"<b>{EMOJI} Base de datos :</b> <code>{check_sgnirts}</code>\n\n"
+        cat_caption += "    <a href = https://t.me/DKzippO><b>Creador</b></a> | <a href = https://t.me/BotsDeSkueletor><b>Más bots</b></a> | <a href = https://t.me/Skueletor_bot><b>Soporte</b></a>"
         await borg.send_file(
             alive.chat_id,
             CAT_IMG,
@@ -57,13 +57,13 @@ async def amireallyalive(alive):
         await edit_or_reply(
             alive,
             f"** {JISAN}**\n\n"
-            f"**{EMOJI} Master:** [{DEFAULTUSER}](tg://user?id={hmm})\n"
-            f"**{EMOJI} Uptime :** `{uptime}\n`"
-            f"**{EMOJI} Python Version :** `{python_version()}\n`"
-            f"**{EMOJI} Telethon Version :** `{version.__version__}\n`"
-            f"**{EMOJI} Catuserbot Version :** `{catversion}`\n"
-            f"**{EMOJI} Database :** `{check_sgnirts}`\n\n"
-            "   **[GoodCat]**(https://github.com/sandy1709/catuserbot) | **[BadCat]**(https://github.com/Jisan09/catuserbot) | **[Support]**(https://t.me/catuserbot_support) ",
+            f"**{EMOJI} Maestro:** [{DEFAULTUSER}](tg://user?id={hmm})\n"
+            f"**{EMOJI} Tiempo de actividad :** `{uptime}\n`"
+            f"**{EMOJI} Versión de Python :** `{python_version()}\n`"
+            f"**{EMOJI} Versión de Telethon :** `{version.__version__}\n`"
+            f"**{EMOJI} Versión del bot :** `{catversion}`\n"
+            f"**{EMOJI} Base de datos :** `{check_sgnirts}`\n\n"
+            "   **[Creador]**(https://t.me/DKzippO) | **[Más bots]**(https://t.me/BotsDeSkueletor) | **[Soporte]**(https://t.me/Skueletor_bot) ",
         )
 
 
@@ -78,10 +78,10 @@ async def amireallyalive(alive):
         reply_to_id = await alive.get_reply_message()
     hmm = bot.uid
     cat_caption = f"**Catuserbot is Up and Running**\n"
-    cat_caption += f"**  -Telethon version :** `{version.__version__}\n`"
-    cat_caption += f"**  -Catuserbot Version :** `{catversion}`\n"
-    cat_caption += f"**  -Python Version :** `{python_version()}\n`"
-    cat_caption += f"**  -My peru Master:** [{DEFAULTUSER}](tg://user?id={hmm})\n"
+    cat_caption += f"**  -Versión de Telethon :** `{version.__version__}\n`"
+    cat_caption += f"**  -Versión del bot :** `{catversion}`\n"
+    cat_caption += f"**  -Versión de Python :** `{python_version()}\n`"
+    cat_caption += f"**  -Creador:** [{DEFAULTUSER}](tg://user?id={hmm})\n"
     results = await bot.inline_query(tgbotusername, cat_caption)  # pylint:disable=E0602
     await results[0].click(alive.chat_id, reply_to=reply_to_id, hide_via=True)
     await alive.delete()
@@ -122,8 +122,8 @@ CMD_HELP.update(
     {
         "alive": "__**PLUGIN NAME :** Alive__\
       \n\n📌** CMD ➥** `.alive`\
-      \n**USAGE   ➥  **To see wether your bot is working or not.\
+      \n**USAGE   ➥  **Para ver si el bot está funcionando o no.\
       \n\n📌** CMD ➥** `.ialive`\
-      \n**USAGE   ➥**  status of bot."
+      \n**USAGE   ➥**  Estado del bot."
     }
 )
