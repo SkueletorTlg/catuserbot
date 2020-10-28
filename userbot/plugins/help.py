@@ -20,14 +20,14 @@ async def cmd_list(event):
         reply_to_id = event.reply_to_msg_id
     input_str = event.pattern_match.group(1)
     if input_str == "text":
-        string = (
-            "En total hay {count} comandos encontrados en {plugincount} plugins del bot de Skueletor\n\n"
-        )
+        string = "En total hay {count} comandos encontrados en {plugincount} plugins del bot de Skueletor\n\n"
         catcount = 0
         plugincount = 0
         for i in sorted(CMD_LIST):
             plugincount += 1
-            string += f"{plugincount}) Comandos encontrados en el plugin " + i + " are \n"
+            string += (
+                f"{plugincount}) Comandos encontrados en el plugin " + i + " are \n"
+            )
             for iter_list in CMD_LIST[i]:
                 string += "    " + str(iter_list)
                 string += "\n"
@@ -97,7 +97,9 @@ async def info(event):
         plugincount = 0
         for i in sorted(SUDO_LIST):
             plugincount += 1
-            string += f"{plugincount}) Comandos encontrados en el plugin " + i + " are \n"
+            string += (
+                f"{plugincount}) Comandos encontrados en el plugin " + i + " are \n"
+            )
             for iter_list in SUDO_LIST[i]:
                 string += "    " + str(iter_list)
                 string += "\n"
